@@ -1,0 +1,35 @@
+<div ng-controller="MapController">
+	<div class="map-controls" >
+		<div>
+			<input ng-model="search" />
+			<label>Latitude: </label>
+			<input ng-model="latitude" />
+			<label>Longitude: </label>
+			<input ng-model="longitude" />
+			<label>Map Type: </label>
+			<select ng-model="mapType" >
+				<option value="ROADMAP">Roadmap</option>
+				<option value="SATELLITE">Satellite</option>
+				<option value="HYBRID">Hybrid</option>
+				<option value="TERRAIN">Terrain</option>
+			</select>
+		</div>
+		<div>
+			<label>{{ search }}</label>
+			<input class="address" readonly ng-model="displayAddress" />
+			<input class="latlong" readonly ng-model="displayLatitude"/>
+			<input class="latlong" readonly ng-model="displayLongitude"/>
+		</div>
+	</div>
+	<div class="map-container">
+	  <map 
+	  	map-type="mapType" 
+	  	search-param="search"
+	  	in-lat="latitude" 
+	  	in-long="longitude" 
+	  	out-lat="displayLatitude" 
+	  	out-long="displayLongitude"
+	  	out-address="displayAddress">
+	  </map>
+	</div>
+</div>
