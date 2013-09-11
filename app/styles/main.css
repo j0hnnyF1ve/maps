@@ -8,19 +8,81 @@ body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
-    margin: 5px;
+    margin: 0;
+}
+
+/* generic styles */
+.address { width: 350px;}
+.latlong { width: 55px; }
+
+.location { margin-bottom: 10px; color: blue; text-decoration: underline; }
+.location .locationLink:hover { cursor: pointer; }
+.location .locationLink.selected { color: red; }
+
+.navbar {
+    background-color: #eaeaea;
+}
+
+.map-controls { 
+    margin: 0 10px;
 }
 
 .map-container {
-    margin-top: 10px;
+    margin: 10px;
 }
 
 .map {
-    min-width: 500px;
-    min-height: 700px;
+    min-width: 450px;
+    min-height: 550px;
 }
-.address { width: 350px;}
-.latlong { width: 35px; }
+
+.infoWindow h1 {
+    font-size: 1.2em;
+}
+
+.page { margin-top: 10px; position: relative; }
+
+.sidebar { 
+    position: absolute; 
+    right: 0; bottom: 0; 
+    border: solid 1px #fff;
+    background-color: #fff;
+    max-width: 400px;
+    height: 50%;
+}
+.sidebar .handle {
+    float: left;
+    width: 30px;
+    height: 100%;
+    background-color: #99e;
+}
+.sidebar .body {
+    position: relative;
+    width: 300px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sidebar .body .heading { 
+    position: absolute;
+    width: 300px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.sidebar .body .locationList {
+    height: 100%;
+    margin-top: 30px;
+    margin-left: 15px;
+    padding: 0;
+    overflow-y: scroll;
+}
+
+.sidebar .body .location { 
+    list-style-type: none;
+}
+
+
 
 input[readonly]
 {

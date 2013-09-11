@@ -1,0 +1,18 @@
+<div class="sidebar">
+	<div class="handle" ng-click="sidebarModel.show = !sidebarModel.show" >
+		{{ sidebarModel.handleText }}
+	</div>
+	<div class="body" ng-show="sidebarModel.show">
+		<div class="heading">
+			<button ng-click="prev()" ng-disabled="sidebarModel.isLoading">&lt;&lt; Prev</button>
+			<button ng-click="next()" ng-disabled="sidebarModel.isLoading">Next &gt;&gt;</button>
+		</div>
+		<ul class="locationList">
+			<li class="location" ng-repeat="location in locations">
+				<a id="LocationLink{{location.index}}" ng-class="{selected: sidebarModel.curPos == location.index}" class="locationLink" ng-click="linkClick(location)" title="{{location.Latitude}}, {{location.Longitude}}">
+					{{location.City}}, {{location.Country}} 
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

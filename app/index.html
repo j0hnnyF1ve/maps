@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="myMapApp">
+  <body ng-app="myMapApp" ng-controller="MainController" data-ng-init="init()">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -26,6 +26,10 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <div class="navbar">
+        <button ng-click="changeView('maps')">View Map</button>
+        <button ng-click="changeView('menu')">View Menu</button>
+    </div>
     <div class="container" ng-view="">
     </div>
 
@@ -71,9 +75,14 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/MainController.js"></script>
+        <script src="scripts/controllers/MapController.js"></script>
+        <script src="scripts/controllers/MenuController.js"></script>
+        <script src="scripts/controllers/SidebarController.js"></script>
         <script src="scripts/directives/map.js"></script>
+        <script src="scripts/directives/sidebar.js"></script>
         <script src="scripts/services/googlemaps.js"></script>
+        <script src="scripts/services/locationList.js"></script>
         <!-- endbuild -->
 </body>
 </html>

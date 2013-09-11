@@ -1,11 +1,11 @@
-<div ng-controller="MapController">
+<div class="page" ng-controller="MapController">
 	<div class="map-controls" >
 		<div>
 			<input ng-model="search" />
 			<label>Latitude: </label>
-			<input ng-model="latitude" />
+			<input class="latlong" ng-model="latitude" />
 			<label>Longitude: </label>
-			<input ng-model="longitude" />
+			<input class="latlong" ng-model="longitude" />
 			<label>Map Type: </label>
 			<select ng-model="mapType" >
 				<option value="ROADMAP">Roadmap</option>
@@ -15,7 +15,7 @@
 			</select>
 		</div>
 		<div>
-			<label>{{ search }}</label>
+			<label ng-bind="search"></label>
 			<input class="address" readonly ng-model="displayAddress" />
 			<input class="latlong" readonly ng-model="displayLatitude"/>
 			<input class="latlong" readonly ng-model="displayLongitude"/>
@@ -32,4 +32,5 @@
 	  	out-address="displayAddress">
 	  </map>
 	</div>
+	<sidebar change-view="changeView" sidebar-index="curIndex" sidebar-open="sidebarOpen"></sidebar>
 </div>

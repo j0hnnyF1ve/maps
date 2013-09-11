@@ -47,19 +47,16 @@ function lookup($string)
 
 	// If Status Code is ZERO_RESULTS, OVER_QUERY_LIMIT, REQUEST_DENIED or INVALID_REQUEST
 	if ($response['status'] != 'OK') {
-	return null;
+		return null;
 	}
 
 //	print_r($response);
 	$geometry = $response['results'][0]['geometry'];
 	$types = implode(',', $response['results'][0]['types']);
  
-	$longitude = $geometry['location']['lat'];
-	$latitude = $geometry['location']['lng'];
-
 	$array = array(
-	    'latitude' => $geometry['location']['lng'],
-	    'longitude' => $geometry['location']['lat'],
+	    'latitude' => $geometry['location']['lat'],
+	    'longitude' => $geometry['location']['lng'],
 	    'location_type' => $geometry['location_type'],
 	    'types' => $types
 	);

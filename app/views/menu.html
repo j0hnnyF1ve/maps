@@ -1,0 +1,9 @@
+<div class="page">
+	City List:
+	<ul class="locationList">
+		<li class="location" ng-repeat="location in locationlist">
+			<a class="locationLink" ng-click="setCurPos(location.index); changeView('maps/' + location.City + '/' + location.Country + '/' + location.Latitude + '/' + location.Longitude)" title="{{location.Latitude}}, {{location.Longitude}}">{{location.City}}, {{location.Country}} 
+			</a>
+		</li>
+	</ul>
+</div>
