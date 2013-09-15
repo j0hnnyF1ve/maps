@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myMapApp.directives')
-	.directive('sidebar', ['$timeout', 'locationList', 'googlemaps', function($timeout, locationList, googlemaps) {
+	.directive('sidebar', ['$timeout', 'locationList', 'googlemaps', 'flickr', function($timeout, locationList, googlemaps, flickr) {
 	    return {
 	    	restrict: 'E',
 	    	replace: true,
@@ -48,12 +48,13 @@ angular.module('myMapApp.directives')
 					googlemaps.setLocation(curLocation.City + ', ' + curLocation.Country);
 					googlemaps.setLat(curLocation.Latitude);
 					googlemaps.setLong(curLocation.Longitude);
-					googlemaps.setZoom(11);
+					googlemaps.setZoom(7);
+
 
 					$scope.sidebarModel.curPos = index;
 					$scope.sidebarModel.isLoading = true;
 
-					var callback = function()
+					var placeMarkerAction = function(windowBody) 
 					{
 						$scope.sidebarModel.isLoading = false;
 
@@ -64,8 +65,53 @@ angular.module('myMapApp.directives')
 							animation: googlemaps.mapObj.Animation.DROP								
 						});
 
-						var infowindow = googlemaps.createInfoWindow(curLocation.City + ', ' + curLocation.Country + ' at (' + curLocation.Latitude + ', ' + curLocation.Longitude + ')', 'This is a test of the Info Window');
+						var infowindow = googlemaps.createInfoWindow(curLocation.City + ', ' + curLocation.Country + ' at (' + curLocation.Latitude + ', ' + curLocation.Longitude + ')', windowBody);
 						$timeout(function() { infowindow.open(googlemaps.map, curMarker); }, 500 );
+						google.maps.event.addListener(curMarker, 'click', function() { infowindow.open(googlemaps.map,curMarker); });
+					}
+
+					var flickrSuccess = function(data, status, headers, config) 
+					{
+						var windowBody = 'No images found.';
+						if(data && data.photoset && data.photoset.photo && data.photoset.photo.length)
+						{
+							var photolist = data.photoset.photo;
+							var photoURL = "http://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg";
+							var	curURL = '';
+							windowBody = '<ul>';
+							// grab the first 5 photos
+							for(var i=0; i < 5 && i < photolist.length; i++)
+							{
+								var curPhoto = photolist[i];
+								curURL = photoURL;
+								curURL = curURL.replace('{farm-id}', curPhoto.farm);
+								curURL = curURL.replace('{server-id}', curPhoto.server);
+								curURL = curURL.replace('{id}', curPhoto.id);
+								curURL = curURL.replace('{secret}', curPhoto.secret);
+
+								windowBody += '<li><img src="' + curURL + '" /></li>';
+							}
+							windowBody += '</ul>';
+						}
+						placeMarkerAction(windowBody);
+					}
+
+					var flickrFailure = function(data, status, headers, config)
+					{
+						console.log(data, status, headers, config);
+					}
+
+					var callback = function()
+					{
+						if(curLocation.flickrID) 
+						{
+							flickr.getFileList(curLocation.flickrID, flickrSuccess, flickrFailure)
+						}
+						else 
+						{
+							placeMarkerAction("No images Found");
+						}
+
 					}
 
 					googlemaps.setMapPosition(googlemaps.getLat(), googlemaps.getLong(), googlemaps.getZoom(), callback);

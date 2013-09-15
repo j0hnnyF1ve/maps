@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('myMapApp', ['myMapApp.directives', 'myMapApp.services'])
-  .config(function ($routeProvider) {
+  .config(function ($httpProvider, $routeProvider) {
+
+    // deleting the X-Requested-With header, was messing up AJAX Flickr calls
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

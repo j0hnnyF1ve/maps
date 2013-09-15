@@ -117,7 +117,8 @@ angular.module('myMapApp.directives')
 				animation: googlemaps.mapObj.Animation.DROP								
 			});
 			var infowindow = googlemaps.createInfoWindow(googlemaps.getLocation() + ' at (' + googlemaps.getLat() + ', ' + googlemaps.getLong() + ')', 'This is a test of the Info Window');
-			infowindow.open(googlemaps.map, curMarker);
+			$timeout(function() { infowindow.open(googlemaps.map, curMarker); }, 500 );
+			google.maps.event.addListener(curMarker, 'click', function() { infowindow.open(googlemaps.map,curMarker); });
 
 			scope.$watch("searchParam", scope.getGeocodeInfo);
 			scope.$watch("mapType", scope.mapTypeHandler ); 
